@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI LearnHub - Intelligent E-Learning Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --success: #4ade80;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .btn-secondary {
+            background: var(--gray);
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #22c55e;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+        }
+
+        .btn-accent:hover {
+            background: #0ea5e9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .login-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            background: var(--secondary);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        /* Course Section */
+        .course-section {
+            background: #f8fafc;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .course-img {
+            height: 180px;
+            background: linear-gradient(135deg, #4361ee 0%, #4cc9f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .course-content {
+            padding: 20px;
+        }
+
+        .course-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .course-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .course-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .course-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* AI Panel */
+        .ai-panel {
+            background: var(--dark);
+            color: white;
+        }
+
+        .ai-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .ai-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .ai-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .ai-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .ai-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .ai-card p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .ai-status {
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--danger);
+        }
+
+        .status-item.active .status-dot {
+            background: var(--success);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            background: #f1f5f9;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+
+        .dashboard-sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            height: fit-content;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .dashboard-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .charts-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Payment Section */
+        .payment-section {
+            background: #f8fafc;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .payment-method {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .payment-method:hover, .payment-method.selected {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .payment-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .payment-method h3 {
+            margin-bottom: 10px;
+        }
+
+        .payment-method p {
+            color: var(--gray);
+        }
+
+        /* Shopping Cart */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            z-index: 1100;
+            padding: 25px;
+            overflow-y: auto;
+        }
+
+        .cart-modal.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cart-header h2 {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .cart-items {
+            margin-bottom: 25px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(135deg, #4361ee 0%, #4cc9f0 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-details h4 {
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* Login Form */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1200;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .login-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .login-form {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: var(--card-shadow);
+            transform: translateY(-20px);
+            transition: var(--transition);
+        }
+
+        .login-modal.active .login-form {
+            transform: translateY(0);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .login-btn-full {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .login-footer {
+            text-align: center;
+            color: var(--gray);
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                background: white;
+                width: 100%;
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 0;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cart-modal {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .ai-controls, .payment-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .login-form {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="nav-logo">
+                <i class="fas fa-robot"></i> AI LearnHub
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#courses" class="nav-link">Courses</a></li>
+                <li><a href="#ai-creator" class="nav-link">AI Creator</a></li>
+                <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="#payment" class="nav-link">Payment</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <button class="login-btn" id="loginBtn">Login</button>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>AI-Powered Learning Experience</h1>
+            <p>Revolutionary courses created and managed by synthetic intelligence. Learn faster, remember more, and enjoy the process with our adaptive learning platform.</p>
+            <div class="hero-btns">
+                <a href="#courses" class="btn btn-accent">Explore Courses</a>
+                <a href="#ai-creator" class="btn">Try AI Creator</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Catalog -->
+    <section id="courses" class="course-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Courses</h2>
+                <p>All courses are AI-generated and designed for optimal learning retention and engagement</p>
+            </div>
+            <div class="course-grid" id="courseGrid">
+                <!-- Courses will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Creator Panel -->
+    <section id="ai-creator" class="ai-panel">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI Course Creator</h2>
+                <p>Activate our synthetic intelligence to create, manage, and optimize your learning platform</p>
+            </div>
+            <div class="ai-controls">
+                <div class="ai-card" onclick="activateCourseAI()">
+                    <div class="ai-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Course Creator AI</h3>
+                    <p>Generate complete courses with curriculum, content, and assessments</p>
+                    <button class="btn btn-accent">Activate</button>
+                </div>
+                <div class="ai-card" onclick="activateMarketingAI()">
+                    <div class="ai-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3>Marketing AI</h3>
+                    <p>Create and distribute marketing content across all platforms</p>
+                    <button class="btn btn-accent">Activate</button>
+                </div>
+                <div class="ai-card" onclick="activateContentAI()">
+                    <div class="ai-icon">
+                        <i class="fas fa-photo-video"></i>
+                    </div>
+                    <h3>Content Generator</h3>
+                    <p>Generate images, videos, and interactive learning materials</p>
+                    <button class="btn btn-accent">Activate</button>
+                </div>
+                <div class="ai-card" onclick="activateAllAI()">
+                    <div class="ai-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Activate All AI</h3>
+                    <p>Fully autonomous platform management with all AI systems</p>
+                    <button class="btn btn-success">Activate All</button>
+                </div>
+            </div>
+            <div class="ai-status" id="aiStatus">
+                <h3>AI System Status</h3>
+                <div class="status-grid" id="statusGrid">
+                    <!-- Status will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Owner Dashboard -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <div class="section-title">
+                <h2>Business Dashboard</h2>
+                <p>Monitor your platform's performance, revenue, and growth metrics</p>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-sidebar">
+                    <h3>Dashboard Menu</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="active"><i class="fas fa-chart-line"></i> Overview</a></li>
+                        <li><a href="#"><i class="fas fa-shopping-cart"></i> Sales</a></li>
+                        <li><a href="#"><i class="fas fa-users"></i> Students</a></li>
+                        <li><a href="#"><i class="fas fa-book"></i> Courses</a></li>
+                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+                <div class="dashboard-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-value" id="totalRevenue">R 0.00</div>
+                            <div class="stat-label">Total Revenue</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="stat-value" id="weeklyPayout">R 0.00</div>
+                            <div class="stat-label">Weekly Payout</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-piggy-bank"></i>
+                            </div>
+                            <div class="stat-value" id="growthFund">R 0.00</div>
+                            <div class="stat-label">Growth Fund</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="stat-value" id="studentCount">0</div>
+                            <div class="stat-label">Active Students</div>
+                        </div>
+                    </div>
+                    
+                    <div class="charts-section">
+                        <div class="chart-container">
+                            <h3>Revenue Growth</h3>
+                            <canvas id="revenueChart" width="400" height="200"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Course Performance</h3>
+                            <canvas id="courseChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section id="payment" class="payment-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Secure Payment Options</h2>
+                <p>Choose your preferred payment method for a seamless transaction</p>
+            </div>
+            <div class="payment-options">
+                <div class="payment-method" onclick="selectPayment('fnb')">
+                    <div class="payment-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>FNB EFT</h3>
+                    <p>Direct Bank Transfer</p>
+                </div>
+                <div class="payment-method" onclick="selectPayment('payfast')">
+                    <div class="payment-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>PayFast</h3>
+                    <p>South African Payments</p>
+                </div>
+                <div class="payment-method" onclick="selectPayment('stripe')">
+                    <div class="payment-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Stripe</h3>
+                    <p>Global Payments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">R 0.00</span>
+        </div>
+        <button class="btn btn-success checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-form">
+            <div class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to your AI LearnHub account</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn login-btn-full">Sign In</button>
+            </form>
+            <div class="login-footer">
+                <p>Don't have an account? <a href="#">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AI LearnHub</h3>
+                    <p>Revolutionizing education through synthetic intelligence and adaptive learning technologies.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#ai-creator">AI Creator</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 AI LearnHub. All rights reserved. Powered by Synthetic Intelligence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sample course data
+        const courses = [
+            {
+                id: 1,
+                title: "AI-Powered Digital Marketing",
+                description: "Learn how to leverage artificial intelligence for marketing success with automated campaigns and analytics.",
+                price: 299,
+                duration: "6 weeks",
+                students: 150,
+                level: "Beginner"
+            },
+            {
+                id: 2,
+                title: "Machine Learning Fundamentals",
+                description: "Complete guide to machine learning algorithms and applications with hands-on projects.",
+                price: 499,
+                duration: "8 weeks",
+                students: 89,
+                level: "Intermediate"
+            },
+            {
+                id: 3,
+                title: "Deep Learning Mastery",
+                description: "Advanced neural networks and deep learning techniques for real-world applications.",
+                price: 799,
+                duration: "10 weeks",
+                students: 45,
+                level: "Advanced"
+            },
+            {
+                id: 4,
+                title: "Data Science with Python",
+                description: "Comprehensive data analysis, visualization, and statistical modeling using Python.",
+                price: 599,
+                duration: "7 weeks",
+                students: 120,
+                level: "Intermediate"
+            },
+            {
+                id: 5,
+                title: "Blockchain Technology",
+                description: "Understanding blockchain, cryptocurrencies, and smart contracts development.",
+                price: 649,
+                duration: "6 weeks",
+                students: 78,
+                level: "Intermediate"
+            },
+            {
+                id: 6,
+                title: "Cyber Security Essentials",
+                description: "Protect systems and networks from digital attacks with proven security practices.",
+                price: 549,
+                duration: "5 weeks",
+                students: 95,
+                level: "Beginner"
+            }
+        ];
+
+        // AI Agents Status
+        const aiAgents = {
+            courseCreator: { name: "Course Creator AI", status: false },
+            marketingAI: { name: "Marketing AI", status: false },
+            contentGenerator: { name: "Content Generator", status: false },
+            analyticsAI: { name: "Analytics AI", status: false },
+            chatbot: { name: "Chatbot Robyn", status: false }
+        };
+
+        // Shopping Cart
+        let cart = [];
+        let businessData = {
+            totalRevenue: 0,
+            weeklyPayout: 0,
+            growthFund: 0,
+            activeStudents: 0
+        };
+
+        // DOM Elements
+        const courseGrid = document.getElementById('courseGrid');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartModal = document.getElementById('cartModal');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCount = document.querySelector('.cart-count');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const loginForm = document.getElementById('loginForm');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const statusGrid = document.getElementById('statusGrid');
+        const totalRevenue = document.getElementById('totalRevenue');
+        const weeklyPayout = document.getElementById('weeklyPayout');
+        const growthFund = document.getElementById('growthFund');
+        const studentCount = document.getElementById('studentCount');
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCourses();
+            updateAIStatus();
+            initializeCharts();
+            simulateBusinessGrowth();
+            
+            // Event Listeners
+            cartIcon.addEventListener('click', toggleCart);
+            closeCart.addEventListener('click', toggleCart);
+            loginBtn.addEventListener('click', toggleLoginModal);
+            loginForm.addEventListener('submit', handleLogin);
+            hamburger.addEventListener('click', toggleMobileMenu);
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === loginModal) {
+                    toggleLoginModal();
+                }
+            });
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (navMenu.classList.contains('active')) {
+                            toggleMobileMenu();
+                        }
+                    }
+                });
+            });
+        });
+
+        // Render courses to the page
+        function renderCourses() {
+            courseGrid.innerHTML = courses.map(course => `
+                <div class="course-card">
+                    <div class="course-img">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>${course.title}</h3>
+                        <p>${course.description}</p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> ${course.duration}</span>
+                            <span><i class="fas fa-signal"></i> ${course.level}</span>
+                            <span><i class="fas fa-users"></i> ${course.students}</span>
+                        </div>
+                        <div class="course-price">R ${course.price}</div>
+                        <div class="course-actions">
+                            <button class="btn" onclick="addToCart(${course.id})">Add to Cart</button>
+                            <button class="btn btn-secondary">Preview</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Shopping Cart Functions
+        function addToCart(courseId) {
+            const course = courses.find(c => c.id === courseId);
+            const existingItem = cart.find(item => item.id === courseId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: course.id,
+                    title: course.title,
+                    price: course.price,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showNotification(`${course.title} added to cart!`);
+        }
+
+        function removeFromCart(courseId) {
+            cart = cart.filter(item => item.id !== courseId);
+            updateCart();
+        }
+
+        function updateCart() {
+            // Update cart count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-img">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="cart-item-details">
+                        <h4>${item.title}</h4>
+                        <div class="cart-item-price">R ${item.price}</div>
+                        <div>Qty: ${item.quantity}</div>
+                        <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Update cart total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `R ${total.toFixed(2)}`;
+            
+            // Show empty message if cart is empty
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty</p>';
+            }
+        }
+
+        function toggleCart() {
+            cartModal.classList.toggle('active');
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty!', 'warning');
+                return;
+            }
+            
+            toggleCart();
+            showNotification('Proceeding to checkout...', 'success');
+            // In a real application, this would redirect to a checkout page
+        }
+
+        // AI Functions
+        function activateCourseAI() {
+            aiAgents.courseCreator.status = true;
+            updateAIStatus();
+            showNotification('Course Creator AI activated! Generating new courses...', 'success');
+            
+            // Simulate course generation
+            setTimeout(() => {
+                showNotification('3 new courses generated successfully!', 'success');
+            }, 2000);
+        }
+
+        function activateMarketingAI() {
+            aiAgents.marketingAI.status = true;
+            updateAIStatus();
+            showNotification('Marketing AI activated! Creating campaigns...', 'success');
+            
+            // Simulate marketing content generation
+            setTimeout(() => {
+                showNotification('Marketing content created and scheduled for social media!', 'success');
+            }, 2000);
+        }
+
+        function activateContentAI() {
+            aiAgents.contentGenerator.status = true;
+            updateAIStatus();
+            showNotification('Content Generator AI activated! Creating learning materials...', 'success');
+        }
+
+        function activateAllAI() {
+            Object.keys(aiAgents).forEach(agent => {
+                aiAgents[agent].status = true;
+            });
+            updateAIStatus();
+            showNotification('All AI systems activated! Platform is now fully autonomous.', 'success');
+            
+            // Simulate AI activity
+            setTimeout(() => {
+                showNotification('AI systems are optimizing platform performance...', 'info');
+            }, 3000);
+        }
+
+        function updateAIStatus() {
+            statusGrid.innerHTML = Object.entries(aiAgents).map(([key, agent]) => `
+                <div class="status-item ${agent.status ? 'active' : ''}">
+                    <span class="status-dot"></span>
+                    ${agent.name}: ${agent.status ? 'ACTIVE' : 'INACTIVE'}
+                </div>
+            `).join('');
+        }
+
+        // Dashboard Functions
+        function initializeCharts() {
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Revenue (R)',
+                        data: [1200, 1900, 3000, 5000, 2000, 3000],
+                        borderColor: '#4361ee',
+                        backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Course Performance Chart
+            const courseCtx = document.getElementById('courseChart').getContext('2d');
+            new Chart(courseCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Digital Marketing', 'Machine Learning', 'Deep Learning', 'Data Science'],
+                    datasets: [{
+                        data: [30, 25, 20, 25],
+                        backgroundColor: [
+                            '#4361ee',
+                            '#3a0ca3',
+                            '#4cc9f0',
+                            '#7209b7'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function simulateBusinessGrowth() {
+            // Simulate initial business data
+            businessData.totalRevenue = 12450.75;
+            businessData.weeklyPayout = businessData.totalRevenue * 0.6;
+            businessData.growthFund = businessData.totalRevenue * 0.4;
+            businessData.activeStudents = 487;
+            
+            updateDashboard();
+            
+            // Simulate ongoing growth
+            setInterval(() => {
+                businessData.totalRevenue += Math.random() * 100;
+                businessData.weeklyPayout = businessData.totalRevenue * 0.6;
+                businessData.growthFund = businessData.totalRevenue * 0.4;
+                businessData.activeStudents += Math.floor(Math.random() * 3);
+                
+                updateDashboard();
+            }, 5000);
+        }
+
+        function updateDashboard() {
+            totalRevenue.textContent = `R ${businessData.totalRevenue.toFixed(2)}`;
+            weeklyPayout.textContent = `R ${businessData.weeklyPayout.toFixed(2)}`;
+            growthFund.textContent = `R ${businessData.growthFund.toFixed(2)}`;
+            studentCount.textContent = businessData.activeStudents;
+        }
+
+        // Payment Functions
+        function selectPayment(method) {
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            paymentMethods.forEach(m => m.classList.remove('selected'));
+            
+            event.currentTarget.classList.add('selected');
+            
+            const paymentData = {
+                'fnb': { name: 'FNB EFT', fee: 0 },
+                'payfast': { name: 'PayFast', fee: 3.5 },
+                'stripe': { name: 'Stripe', fee: 2.9 }
+            };
+            
+            showNotification(`${paymentData[method].name} selected as payment method`, 'info');
+        }
+
+        // UI Functions
+        function toggleLoginModal() {
+            loginModal.classList.toggle('active');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simple validation
+            if (email && password) {
+                showNotification('Login successful! Redirecting to dashboard...', 'success');
+                toggleLoginModal();
+                
+                // In a real application, this would make an API call and redirect
+                setTimeout(() => {
+                    window.location.href = '#dashboard';
+                }, 1500);
+            } else {
+                showNotification('Please fill in all fields', 'warning');
+            }
+        }
+
+        function toggleMobileMenu() {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        }
+
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <span class="notification-message">${message}</span>
+                    <button class="notification-close"><i class="fas fa-times"></i></button>
+                </div>
+            `;
+            
+            // Add styles for notification
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : type === 'warning' ? '#f59e0b' : type === 'danger' ? '#ef4444' : '#3b82f6'};
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                z-index: 1300;
+                max-width: 400px;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            // Add keyframes for animation
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    .notification-close {
+                        background: none;
+                        border: none;
+                        color: white;
+                        cursor: pointer;
+                        margin-left: 10px;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            document.body.appendChild(notification);
+            
+            // Add close functionality
+            const closeBtn = notification.querySelector('.notification-close');
+            closeBtn.addEventListener('click', () => {
+                notification.remove();
+            });
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
