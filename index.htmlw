@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI LearnHub - Intelligent E-Learning Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <i class="fas fa-robot"></i> AI LearnHub
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#courses" class="nav-link">Courses</a></li>
+                <li><a href="#ai-creator" class="nav-link">AI Creator</a></li>
+                <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="#payment" class="nav-link">Payment</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+                <button class="login-btn" id="loginBtn">Login</button>
+                <div class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-content">
+            <h1>AI-Powered Learning Experience</h1>
+            <p>Revolutionary courses created and managed by synthetic intelligence. Learn faster, remember more, and enjoy the process with our adaptive learning platform.</p>
+            <div class="hero-btns">
+                <a href="#courses" class="btn btn-accent">Explore Courses</a>
+                <a href="#ai-creator" class="btn">Try AI Creator</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Catalog -->
+    <section id="courses" class="course-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Courses</h2>
+                <p>All courses are AI-generated and designed for optimal learning retention and engagement</p>
+            </div>
+            <div class="course-grid" id="courseGrid">
+                <!-- Courses will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Creator Panel -->
+    <section id="ai-creator" class="ai-panel">
+        <div class="container">
+            <div class="section-title">
+                <h2>AI Course Creator</h2>
+                <p>Activate our synthetic intelligence to create, manage, and optimize your learning platform</p>
+            </div>
+            <div class="ai-controls">
+                <div class="ai-card" onclick="activateCourseAI()">
+                    <div class="ai-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Course Creator AI</h3>
+                    <p>Generate complete courses with curriculum, content, and assessments</p>
+                    <button class="btn btn-accent">Activate</button>
+                </div>
+                <div class="ai-card" onclick="activateMarketingAI()">
+                    <div class="ai-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3>Marketing AI</h3>
+                    <p>Create and distribute marketing content across all platforms</p>
+                    <button class="btn btn-accent">Activate</button>
+                </div>
+                <div class="ai-card" onclick="activateContentAI()">
+                    <div class="ai-icon">
+                        <i class="fas fa-photo-video"></i>
+                    </div>
+                    <h3>Content Generator</h3>
+                    <p>Generate images, videos, and interactive learning materials</p>
+                    <button class="btn btn-accent">Activate</button>
+                </div>
+                <div class="ai-card" onclick="activateAllAI()">
+                    <div class="ai-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Activate All AI</h3>
+                    <p>Fully autonomous platform management with all AI systems</p>
+                    <button class="btn btn-success">Activate All</button>
+                </div>
+            </div>
+            <div class="ai-status" id="aiStatus">
+                <h3>AI System Status</h3>
+                <div class="status-grid" id="statusGrid">
+                    <!-- Status will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Owner Dashboard -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <div class="section-title">
+                <h2>Business Dashboard</h2>
+                <p>Monitor your platform's performance, revenue, and growth metrics</p>
+            </div>
+            <div class="dashboard-container">
+                <div class="dashboard-sidebar">
+                    <h3>Dashboard Menu</h3>
+                    <ul class="sidebar-menu">
+                        <li><a href="#" class="active"><i class="fas fa-chart-line"></i> Overview</a></li>
+                        <li><a href="#"><i class="fas fa-shopping-cart"></i> Sales</a></li>
+                        <li><a href="#"><i class="fas fa-users"></i> Students</a></li>
+                        <li><a href="#"><i class="fas fa-book"></i> Courses</a></li>
+                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                    </ul>
+                </div>
+                <div class="dashboard-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-value" id="totalRevenue">R 0.00</div>
+                            <div class="stat-label">Total Revenue</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="stat-value" id="weeklyPayout">R 0.00</div>
+                            <div class="stat-label">Weekly Payout</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-piggy-bank"></i>
+                            </div>
+                            <div class="stat-value" id="growthFund">R 0.00</div>
+                            <div class="stat-label">Growth Fund</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="stat-value" id="studentCount">0</div>
+                            <div class="stat-label">Active Students</div>
+                        </div>
+                    </div>
+                    
+                    <div class="charts-section">
+                        <div class="chart-container">
+                            <h3>Revenue Growth</h3>
+                            <canvas id="revenueChart" width="400" height="200"></canvas>
+                        </div>
+                        <div class="chart-container">
+                            <h3>Course Performance</h3>
+                            <canvas id="courseChart" width="400" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section id="payment" class="payment-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Secure Payment Options</h2>
+                <p>Choose your preferred payment method for a seamless transaction</p>
+            </div>
+            <div class="payment-options">
+                <div class="payment-method" onclick="selectPayment('fnb')">
+                    <div class="payment-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>FNB EFT</h3>
+                    <p>Direct Bank Transfer</p>
+                </div>
+                <div class="payment-method" onclick="selectPayment('payfast')">
+                    <div class="payment-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>PayFast</h3>
+                    <p>South African Payments</p>
+                </div>
+                <div class="payment-method" onclick="selectPayment('stripe')">
+                    <div class="payment-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Stripe</h3>
+                    <p>Global Payments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shopping Cart -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" id="closeCart">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">R 0.00</span>
+        </div>
+        <button class="btn btn-success checkout-btn" onclick="proceedToCheckout()">Proceed to Checkout</button>
+    </div>
+
+    <!-- Login Form -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-form">
+            <div class="login-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to your AI LearnHub account</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn login-btn-full">Sign In</button>
+            </form>
+            <div class="login-footer">
+                <p>Don't have an account? <a href="#">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AI LearnHub</h3>
+                    <p>Revolutionizing education through synthetic intelligence and adaptive learning technologies.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#ai-creator">AI Creator</a></li>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 AI LearnHub. All rights reserved. Powered by Synthetic Intelligence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/ai-manager.js"></script>
+</body>
+</html>
